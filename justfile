@@ -44,16 +44,24 @@ debug-cgo:
 		echo "Browse wasmer/_obj/"
 
 # Run all the tests.
-test:
+test: test-wasmer
+
+# Run all the tests of the `wasmer` package.
+test-wasmer:
 	#!/usr/bin/env bash
-	#export DYLD_PRINT_LIBRARIES=y
 	cd wasmer
 	# Run the tests.
-	GODEBUG=cgocheck=2 go test -test.v $(find test -type f \( -name "*_test.go" \! -name "example_*.go" \! -name "benchmark*.go" \) ) test/imports.go
+	GODEBUG=cgocheck=2 go test -test.v $( find test -type f \( -name "*_test.go" \! -name "example_*.go" \! -name "benchmark*.go" \) ) test/imports.go
 	# Run the short examples.
 	go test -test.v example_test.go
 	# Run the long examples.
 	go test -test.v $(find . -type f \( -name "example_*_test.go" \! -name "_example_import_test.go" \) )
+
+# Run all the tests of the `wasmexec` package.
+test-wasmexec:
+	#!/usr/bin/env bash
+	cd wasmexec
+	GODEBUG=cgocheck=2 go test -test.v $( find test -type f \( -name "*_test.go" \) )
 
 # Run benchmarks. Subjects can be `wasmer`, `wagon` or `life`. Filter is a regex to select the benchmarks.
 bench subject='wasmer' filter='.*':
