@@ -147,9 +147,8 @@ pub extern "C" fn sum(x: i32, y: i32) -> i32 {
 }
 ```
 
-After compilation to WebAssembly, the
-[`examples/appendices/simple.wasm`]((https://github.com/wasmerio/wasmer-go/blob/master/examples/appendices/simple.wasm))
-binary is generated.
+A compiled WebAssembly binary is included in
+[`examples/appendices/simple.wasm`]((https://github.com/wasmerio/wasmer-go/blob/master/examples/appendices/simple.wasm)).
 
 Then, we can execute it in Go:
 
@@ -189,7 +188,9 @@ func main() {
 And then, finally, enjoy by running:
 
 ```sh
-$ go run examples/appendices/simple.go
+$ cd examples/appendices/
+$ go run simple.go
+42
 ```
 
 # Testing
