@@ -6,6 +6,8 @@ on:
       - master
       - staging
       - trying
+  pull_request:
+    branches: [master]
   schedule:
     - cron: '0 2 * * *' # To test `wasmer-nightly` with `libwasmer_archive_name`.
 
