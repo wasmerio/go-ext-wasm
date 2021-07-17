@@ -6,6 +6,8 @@ on:
       - master
       - staging
       - trying
+  pull_request:
+    branches: [master]
   schedule:
     - cron: '0 2 * * *' # To test `wasmer-nightly` with `libwasmer_archive_name`.
 
@@ -73,6 +75,12 @@ jobs:
           export CGO_CFLAGS="-I$(pwd)/libwasmer/include/"
           export CGO_LDFLAGS="-Wl,-rpath,$(pwd)/libwasmer/lib/ -L$(pwd)/libwasmer/lib/ -lwasmer"
           just test -tags custom_wasmer_runtime
+
+      - name: Run e2e tests (default)
+        if: ${{ !matrix.target.libwasmer_archive_name }}
+        shell: bash
+        run: |
+          just e2e
 
       - name: Run all the examples
         shell: bash
